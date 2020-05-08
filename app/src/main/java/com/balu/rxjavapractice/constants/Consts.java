@@ -49,4 +49,8 @@ public class Consts {
         public static String URL_PREFIX_COVID_WORLD = "https://api.covid19api.com/";
         public static String URL_PREFIX_COVID_IND = "https://www.mohfw.gov.in/dashboard/data/";
     }
+
+    public static class Post{
+        public static String URL_PREFIX_POSTS = "https://jsonplaceholder.typicode.com/";
+    }
 }

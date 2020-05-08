@@ -1,4 +1,4 @@
-package com.balu.rxjavapractice;
+package com.balu.rxjavapractice.mock;
 
 import com.balu.rxjavapractice.model.weather.Location;
 import com.balu.rxjavapractice.model.weather.Weather;
@@ -31,11 +31,21 @@ public class Mock {
         for (int i = 0; i < 10; i++) {
             final Weather weather = new Weather();
             Location location = new Location();
-            location.setCountry("IN");
-            location.setName("Hyd");
+            location.setCountry("IN"+i);
+            location.setName("Hyd"+i);
+            location.setLat(i+"");
             weather.setLocation(location);
             list.add(weather);
         }
+        final Weather weather1 = new Weather();
+        Location location1 = new Location();
+        location1.setCountry("India");
+        location1.setName("Visakhapatnam");
+        weather1.setLocation(location1);
+        list.add(weather1);
+        list.add(weather1);
+        list.add(weather1);
+
         return list;
     }
 }

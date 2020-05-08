@@ -18,9 +18,8 @@ import io.reactivex.schedulers.Schedulers;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
-import com.balu.rxjavapractice.Mock;
+import com.balu.rxjavapractice.mock.Mock;
 import com.balu.rxjavapractice.R;
 import com.balu.rxjavapractice.api.api_client.CovidApiClient;
 import com.balu.rxjavapractice.api.api_client.CricketCilent;
@@ -30,8 +29,6 @@ import com.balu.rxjavapractice.model.covid.CovidWorldSummary;
 import com.balu.rxjavapractice.model.cricket.Matches;
 import com.balu.rxjavapractice.model.cricket.PlayerBio;
 import com.balu.rxjavapractice.model.cricket.PlayerFinder;
-import com.balu.rxjavapractice.model.cricket.ScoreCard;
-import com.balu.rxjavapractice.model.weather.Location;
 import com.balu.rxjavapractice.model.weather.Weather;
 
 import java.util.ArrayList;
@@ -45,7 +42,7 @@ public class RxOperatorsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rx_operators);
         Zip();
         flatMap();
-        create();
+//        create();
 
     }
 
@@ -102,9 +99,10 @@ public class RxOperatorsActivity extends AppCompatActivity {
     @SuppressLint("CheckResult")
     // parelell execution
     private void Zip() {
-        Single.zip(CricketCilent.provideCricApiClient().getUpcomongMatches(Consts.Cricket.API_KEY_CRICKET),
-                CovidApiClient.providesCovidApiClientWorld().getCovidSummary(),
-                WeatherApiClient.providesWeatherApiClient().getWeatherByLocation(Consts.Whether.API_KEY_WEATHER, "Hyderabad"),
+        Single.zip(CricketCilent.provideCricApiClient().getUpcomongMatches(Consts.Cricket.API_KEY_CRICKET).onErrorReturnItem(new Matches()),
+                CovidApiClient.providesCovidApiClientWorld().getCovidSummary().onErrorReturnItem(new CovidWorldSummary()),
+                WeatherApiClient.providesWeatherApiClient().getWeatherByLocation(Consts.Whether.API_KEY_WEATHER, "Hyderabad")
+                .onErrorReturnItem(new Weather()),
                 new Function3<Matches, CovidWorldSummary, Weather, List<String>>() {
                     @Override
                     public List<String> apply(Matches matches, CovidWorldSummary covidWorldSummary, Weather weather) throws Exception {
@@ -114,8 +112,7 @@ public class RxOperatorsActivity extends AppCompatActivity {
                         list.add(weather.toString());
                         return list;
                     }
-                }
-        )
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<String>>() {
