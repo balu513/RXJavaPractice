@@ -1,0 +1,30 @@
+
+
+  -> RX operators practice
+
+
+
+    >>> SONARQUBE setup <<<<<
+
+           http://localhost:9000/
+           username : admin
+           password: admin
+
+
+  Start sonar in MAC :
+  sh /Applications/SonarQube/bin/macosx-universal-64/sonar.sh console
+
+  Run sonar Gradle for Android project:
+  gradle sonarqube -Dsonar.host.url=http://localhost:9000/ -Dsonar.login=8d3f3b4c62c1f17cafa119829f151b1f925958d0
+
+
+
+
+ Refer:
+ https://medium.com/@vialyx/android-code-coverage-metrics-with-sonarqube-jacoco-3f99bc700e84
+
+ https://medium.com/@sergiygrechukha/android-ui-and-unit-tests-coverage-report-with-jacoco-and-sonarqube-1db5576f79b0
+
+ https://tech.olx.com/sonarqube-integration-in-android-application-part-1-37041b0379
+
+ https://medium.com/@sandeeptengale/integrate-sonarqube-for-android-application-development-8e40ec28e343

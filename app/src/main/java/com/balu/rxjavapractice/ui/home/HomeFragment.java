@@ -27,10 +27,12 @@ import io.reactivex.schedulers.Schedulers;
 import com.balu.rxjavapractice.FlatMapDemoActivity;
 import com.balu.rxjavapractice.R;
 import com.balu.rxjavapractice.mock.Mock;
+import com.balu.rxjavapractice.mock.Task;
 import com.balu.rxjavapractice.model.weather.Weather;
 import com.balu.rxjavapractice.repository.Repository;
 import com.balu.rxjavapractice.ui.RxOperatorsActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
@@ -359,6 +361,60 @@ public class HomeFragment extends Fragment {
                         Log.d(TAG, weather.getLocation().getName());
                     }
                 });
+    }
+
+
+    @SuppressLint("CheckResult")
+    private void pred(){
+
+        Observable.fromIterable(createTasksList())
+                .subscribeOn(Schedulers.io())
+                .filter(new Predicate<Task>() {
+                    @Override
+                    public boolean test(Task task) throws Exception {
+                        return false;
+                    }
+                })
+                .map(new Function<Task, Integer>() {
+                    @Override
+                    public Integer apply(Task task) throws Exception {
+                        return task.priority;
+                    }
+                }).distinct()
+                .subscribe(new Observer<Integer>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(Integer integer) {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+
+    }
+
+
+
+    public static List<Task> createTasksList(){
+        List<Task> tasks = new ArrayList<>();
+        tasks.add(new Task("Take out the trash", true, 3));
+        tasks.add(new Task("Walk the dog", false, 2));
+        tasks.add(new Task("Make my bed", true, 1));
+        tasks.add(new Task("Unload the dishwasher", false, 0));
+        tasks.add(new Task("Make dinner", true, 5));
+        return tasks;
     }
 
     @Override

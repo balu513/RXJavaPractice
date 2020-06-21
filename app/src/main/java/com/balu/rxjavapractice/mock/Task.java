@@ -2,9 +2,9 @@ package com.balu.rxjavapractice.mock;
 
 public class Task {
 
-    private String description;
-    private boolean isComplete;
-    private int priority;
+    public String description;
+    public boolean isComplete;
+    public int priority;
 
     public Task(String description, boolean isComplete, int priority) {
         this.description = description;

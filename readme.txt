@@ -12,3 +12,6 @@ create:
 The Create() operator is obviously used to create Observables. It's the most basic but it's also probably the most flexible. If you want to create an Observable and none of the other operators fit your needs, consider the Create() operator.
 
 just: You can only pass a maximum of 10 objects to the just() operator. Not that you'll ever use it.
+
+fromCallable()
+fromCallable() will execute a block of code (usually a method) and return a result.

@@ -13,6 +13,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Function3;
+import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
 import android.annotation.SuppressLint;
@@ -126,6 +127,7 @@ public class RxOperatorsActivity extends AppCompatActivity {
 
     // sequentionally executes
     private void flatMap() {
+
         CricketCilent.provideCricApiClient().getPlayersBySearch(Consts.Cricket.API_KEY_CRICKET, "sachin")
                 .subscribeOn(Schedulers.io())
                 .onErrorReturnItem(new PlayerFinder())
